@@ -35,7 +35,13 @@ body button {
 }
 
 #game-board {
-  float: left;
-  padding: 20px 0px;
   border: #31ff07 dashed;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+}
+canvas {
+  border: 1px solid black;
 }
