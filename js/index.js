@@ -28,8 +28,27 @@ class Car {
   drawCar = () => {
     ctx.drawImage(this.carImg, this.x, this.y, this.w, this.h)
   }
+}
 
+class Obstacle {
+  constructor(x, y, w, h, src) {
+    this.x = x;
+    this.y = 0;
+    this.w = w;
+    this.h = h;
+    this.src = src;
+    this.obstacleImg = new Image()
+  }
+  loadObstacle = () => {
 
+    this.obstacleImg.src = this.src
+    this.obstacleImg.onload = this.drawObstacle
+
+  }
+  drawObstacle = () => {
+    ctx.drawImage(this.obstacleImg, this.x, this.y, this.w, this.h)
+    this.y ++
+  }
 }
 
 let ferrari = new Car(canvas.width / 2 + 10, canvas.height / 2 - 50, 50, 100, "./images/car.png")
