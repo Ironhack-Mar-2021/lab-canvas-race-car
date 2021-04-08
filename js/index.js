@@ -18,6 +18,7 @@ class Car {
     this.h = h;
     this.src = src;
     this.carImg = new Image()
+    this.speed = -2
   }
   loadCar = () => {
 
@@ -29,8 +30,9 @@ class Car {
     ctx.drawImage(this.carImg, this.x, this.y, this.w, this.h)
   }
   popoMove = () => {
-    this.y -= 1
+    this.y += this.speed
   }
+
 }
 
 class Obstacle {
@@ -104,6 +106,9 @@ function popoCollision(rect1, rect2,) {
     rect1.y + rect1.h > rect2.y) {
     // collision detected!
     console.log("COLLISION")
+    rect2.speed = 1
+    rect2.w = 125
+    rect2.h = 50
   }
 }
 
@@ -116,16 +121,22 @@ function animate() {
 
 
   obstacles.forEach(rock => {
-    rock.drawObstacle()
-    detectCollision(ferrari, rock, frameId)
 
-    allThePopos.forEach(pop => {
-      pop.popoMove()
-      pop.drawCar()
-      popoCollision(rock, pop,)
-    })
+    detectCollision(ferrari, rock, frameId)
+    rock.drawObstacle()
+    // allThePopos.forEach(pop => {
+    //   pop.popoMove()
+    //   pop.drawCar()
+    //   // popoCollision(rock, pop,)
+    //   rock.drawObstacle()
+    //})
   })
 
+  allThePopos.forEach(pop => {
+    obstacles.forEach(rock => popoCollision(rock, pop))
+    pop.popoMove()
+    pop.drawCar()
+  })
 
   // spaceShip.drawCar()
 }
