@@ -33,7 +33,7 @@ class Car {
 class Obstacle {
   constructor(x, y, w, h, src) {
     this.x = x;
-    this.y = 0;
+    this.y = y;
     this.w = w;
     this.h = h;
     this.src = src;
@@ -53,11 +53,26 @@ class Obstacle {
 
 let ferrari = new Car(canvas.width / 2 + 10, canvas.height / 2 - 50, 50, 100, "./images/car.png")
 let popo = new Car(canvas.width / 2 - 100, canvas.height - 100, 160, 160, "./images/Policecar.png")
+
+
 // let spaceShip = new Car(0, 0, 100, 100, "https://cpng.pikpng.com/pngl/s/267-2676432_simple-spaceship-top-down-spaceship-sprites-clipart.png")
 
 ferrari.loadCar()
 popo.loadCar()
+
 // spaceShip.loadCar()
+
+
+setInterval (() => {
+let rock = new Obstacle(Math.random() * canvas.width, -100, 100, 100, "./images/rock.png")
+rock.loadObstacle()
+obstacles.push(rock)
+}, 3000) 
+  
+let obstacles = []
+
+
+
 
 function animate() {
   requestAnimationFrame(animate)
@@ -65,6 +80,11 @@ function animate() {
   ctx.drawImage(roadImg, 0, 0, 700, 900)
   ferrari.drawCar()
   popo.drawCar()
+  
+
+  obstacles.forEach(rock => {
+  rock.drawObstacle()
+  })
   // spaceShip.drawCar()
 }
 
