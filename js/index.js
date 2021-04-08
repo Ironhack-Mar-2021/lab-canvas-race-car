@@ -38,3 +38,28 @@ let ferrari = new Car(canvas.width / 2 - 25, canvas.height - 100, 50, 100, "./..
 
 ferrari.loadCar()
 // spaceShip.loadCar()
+
+function animate () {
+  requestAnimationFrame(animate)
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.drawImage(roadImg, 0, 0, 500, 700)
+  ferrari.drawCar()
+  // spaceShip.drawCar()
+}
+
+window.onkeydown = function (e){
+  if (e.key === "ArrowLeft") {
+    ferrari.x -= 20;
+  }
+  if (e.key === "ArrowRight") {
+    ferrari.x += 20;
+  }
+  if (e.key === "ArrowUp") {
+    ferrari.y -= 20;
+  }
+  if (e.key === "ArrowDown") {
+    ferrari.y += 20;
+  }
+}
+
+animate()
