@@ -4,7 +4,7 @@ console.log(ctx)
 
 // ctx.fillRect(0, 0, 50, 70)
 let roadImg = new Image()
-roadImg.src = './../images/road.png'
+roadImg.src = './images/road.png'
 roadImg.onload = function (e) {
   ctx.drawImage(roadImg, 0, 0, 500, 700)
 }
@@ -32,14 +32,14 @@ class Car {
 
 }
 
-let ferrari = new Car(canvas.width / 2 - 25, canvas.height - 100, 50, 100, "./../images/car.png")
+let ferrari = new Car(canvas.width / 2 - 25, canvas.height - 100, 50, 100, "./images/car.png")
 
 // let spaceShip = new Car(0, 0, 100, 100, "https://cpng.pikpng.com/pngl/s/267-2676432_simple-spaceship-top-down-spaceship-sprites-clipart.png")
 
 ferrari.loadCar()
 // spaceShip.loadCar()
 
-function animate () {
+function animate() {
   requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(roadImg, 0, 0, 500, 700)
@@ -47,7 +47,7 @@ function animate () {
   // spaceShip.drawCar()
 }
 
-window.onkeydown = function (e){
+window.onkeydown = function (e) {
   if (e.key === "ArrowLeft") {
     ferrari.x -= 20;
   }
