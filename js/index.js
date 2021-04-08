@@ -28,6 +28,9 @@ class Car {
   drawCar = () => {
     ctx.drawImage(this.carImg, this.x, this.y, this.w, this.h)
   }
+  popoMove = () => {
+    this.y -= 1
+  }
 }
 
 class Obstacle {
@@ -47,7 +50,7 @@ class Obstacle {
   }
   drawObstacle = () => {
     ctx.drawImage(this.obstacleImg, this.x, this.y, this.w, this.h)
-    this.y ++
+    this.y++
   }
 }
 
@@ -62,29 +65,68 @@ popo.loadCar()
 
 // spaceShip.loadCar()
 
-
-setInterval (() => {
-let rock = new Obstacle(Math.random() * canvas.width, -100, 100, 100, "./images/rock.png")
-rock.loadObstacle()
-obstacles.push(rock)
-}, 3000) 
-  
+//Rocks
+setInterval(() => {
+  let rock = new Obstacle(Math.random() * canvas.width - 100, -100, 100, 100, "./images/rock.png")
+  rock.loadObstacle()
+  obstacles.push(rock)
+}, 3000)
 let obstacles = []
 
+//popo Cars
+setInterval(() => {
+  let popoCar = new Car(Math.random() * canvas.width - 100, 1600, 160, 160, "./images/Policecar.png")
+  popoCar.loadCar()
+  allThePopos.push(popoCar)
+}, 3000)
+let allThePopos = []
 
 
+
+//Collision Detection
+function detectCollision(rect1, rect2, frameId) {
+  if (rect1.x < rect2.x + rect2.w &&
+    rect1.x + rect1.w > rect2.x &&
+    rect1.y < rect2.y + rect2.h &&
+    rect1.y + rect1.h > rect2.y) {
+    // collision detected!
+    console.log("COLLISION")
+    cancelAnimationFrame(frameId)
+    alert("GAME OVER NOOB")
+  }
+}
+
+
+function popoCollision(rect1, rect2,) {
+  if (rect1.x < rect2.x + rect2.w &&
+    rect1.x + rect1.w > rect2.x &&
+    rect1.y < rect2.y + rect2.h &&
+    rect1.y + rect1.h > rect2.y) {
+    // collision detected!
+    console.log("COLLISION")
+  }
+}
 
 function animate() {
-  requestAnimationFrame(animate)
+  let frameId = requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(roadImg, 0, 0, 700, 900)
   ferrari.drawCar()
-  popo.drawCar()
-  
+
+
 
   obstacles.forEach(rock => {
-  rock.drawObstacle()
+    rock.drawObstacle()
+    detectCollision(ferrari, rock, frameId)
+
+    allThePopos.forEach(pop => {
+      pop.popoMove()
+      pop.drawCar()
+      popoCollision(rock, pop,)
+    })
   })
+
+
   // spaceShip.drawCar()
 }
 
